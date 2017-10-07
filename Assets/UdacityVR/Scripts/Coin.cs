@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour 
-{
+public class Coin : MonoBehaviour {
+
     //Create a reference to the CoinPoofPrefab
     public GameObject coinPoof;
-   // public AudioClip clipClick;
 
-    //private AudioSource _audioSource;
+    private float _basePositionY;
 
-  //  private void Awake() {
-      //  _audioSource = gameObject.GetComponent<AudioSource>();
-      //  _audioSource.clip = clipClick;
-     //   _audioSource.playOnAwake = false;
-    //}
+    public void Start() {
+        _basePositionY = transform.position.y;    
+    }
+    public void Update() {
+        transform.position = new Vector3(transform.position.x, _basePositionY + Mathf.Sin(Time.time * 3.0f)/2, transform.position.z);
+    }
 
     public void OnCoinClicked() {
         // Instantiate the CoinPoof Prefab where this coin is located
