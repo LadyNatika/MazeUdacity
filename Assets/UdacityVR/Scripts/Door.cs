@@ -9,6 +9,7 @@ public class Door : MonoBehaviour
     public AudioClip doorLockedClick;
    
     private AudioSource _audioSource;
+    private bool _unlocked;
 
     // Create a boolean value called "locked" that can be checked in OnDoorClicked() 
     // Create a boolean value called "opening" that can be checked in Update() 
@@ -16,23 +17,20 @@ public class Door : MonoBehaviour
         _audioSource = gameObject.GetComponent<AudioSource>(); 
     }
     void Update() {
-        //doorAnimator = gameObject.GetComponent<Animator>;
         Animator doorAnimator = gameObject.GetComponent<Animator>();
        
-        // doorAnimator.SetBool("Open", true);
-        //doorAnimator.SetBool("Open", false);
-
         // If the door is opening and it is not fully raised
         // Animate the door raising up
     }
 
     public void OnDoorClicked() {
-        _audioSource.clip = doorLockedClick;
-        _audioSource.Play();
-       
-       // Vector3 fwd = transform.TransformDirection(Vector3.forward);
-      //  doorAnimator.SetBool("Open", Physics.Raycast(transform.position, fwd, 2));
-     
+        if (_unlocked) {
+            _audioSource.PlayOneShot(doorOpenClick);
+            doorAnimator.SetBool("Open", true);
+        } else {
+            _audioSource.PlayOneShot(doorLockedClick);
+        }
+         
         // If the door is clicked and unlocked
         // Set the "opening" boolean to true
         // (optionally) Else
@@ -40,9 +38,7 @@ public class Door : MonoBehaviour
     }
 
     public void Unlock() {
-        _audioSource.clip = doorOpenClick;
-        _audioSource.Play();
-       doorAnimator.SetBool("Open", true);
+        _unlocked = true;
 
         // You'll need to set "locked" to false here
     }
