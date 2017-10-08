@@ -10,7 +10,7 @@ public class DetectSignPost : MonoBehaviour {
     void FixedUpdate()
     {
         float distance = Vector3.Distance(signPost.transform.position, transform.position);
-        Debug.Log((distance < 16f) + " distance to signpost. Real distance - " + distance);
+        // Debug.Log((distance < 16f) + " distance to signpost. Real distance - " + distance);
         signPost.GetComponent<GraphicRaycaster>().enabled = distance < 16f;
     }
 }
